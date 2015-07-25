@@ -1,0 +1,12 @@
+fuse*
+.DS_Store
+*~
+*.*~
+.*.sw*
+._*
+.#*
+*.swp
+
+env_file
+images/sftp/keys/*
+!images/sftp/keys/.gitkeep
