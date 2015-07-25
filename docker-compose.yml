@@ -1,0 +1,20 @@
+wordpress:
+  build: images/wordpress
+  links:
+    - db:mysql
+  ports:
+    - "80:80"
+  volumes:
+    - /var/www/html
+
+db:
+  build: images/db
+  env_file: env_file
+
+sftp:
+  build: images/sftp
+  command: www-data::33
+  ports:
+    - "23456:22"
+  volumes_from:
+    - wordpress
