@@ -1,4 +1,4 @@
-FROM atmoz/sftp@sha256:d64f8933f49e4fd73f0c1e81e7087672107087c1b9efd0a63734460ee2d19d3b
+FROM atmoz/sftp@sha256:ccdfdfba84cdd4222249d267e50b5e49a9556b9ad605310ffcb0f0f392f63953
 
 RUN mkdir -p /var/www/.ssh/keys
 
