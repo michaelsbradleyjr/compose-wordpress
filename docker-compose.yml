@@ -1,15 +1,25 @@
+db:
+  build: images/db
+  env_file: env_file
+
+# just put smtp on the wordpress container, that will be simpler ... but then it
+# have to be a background process, uggghhh
+# maybe not so bad: https://docs.docker.com/articles/using_supervisord/
+# also need to auto-modify .htaccess in /var/www/html so upload size is 64M
+# ssl
+# themes, plugins
 wordpress:
   build: images/wordpress
+  env_file: env_file
   links:
     - db:mysql
   ports:
     - "80:80"
+    - "443:443"
+  # this volumes setup may be redundant, since the parent images sets it in the
+  # Dockerfile
   volumes:
     - /var/www/html
-
-db:
-  build: images/db
-  env_file: env_file
 
 sftp:
   build: images/sftp
