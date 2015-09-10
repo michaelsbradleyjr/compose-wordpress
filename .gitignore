@@ -10,3 +10,11 @@ fuse*
 env_file
 images/sftp/keys/*
 !images/sftp/keys/.gitkeep
+images/wordpress/plugins/*
+!images/wordpress/plugins/.gitkeep
+images/wordpress/sites-enabled/*
+!images/wordpress/sites-enabled/.gitkeep
+images/wordpress/ssl/*
+!images/wordpress/ssl/.gitkeep
+images/wordpress/themes/*
+!images/wordpress/themes/.gitkeep
