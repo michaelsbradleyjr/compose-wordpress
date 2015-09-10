@@ -52,7 +52,7 @@ if [ $machines_all_flag = false ]; then
 fi
 
 if [[ ( $machines_all_flag = false ) && \
-          ( $(echo $machines | tr ' ' '\n' | awk 'a[$0]++{print "true"}' -)  = "true" ) ]]; then
+          ( $(echo $machines | tr ' ' '\n' | awk 'a[$0]++{print "true"}' -)  != "" ) ]]; then
     echo "One or more machine names were given more than once:"
     echo ""
     echo $machines | tr ' ' '\n' | awk 'seen[$0]++ == 1' - | awk '{print "  " $0}' -
