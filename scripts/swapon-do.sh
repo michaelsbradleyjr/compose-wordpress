@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
-# Setup a swapfile on one or more docker-machine DigitalOcean instances
-#  by default DigitalOcean instances do not have swap enabled
+# Setup a swapfile on one or more docker-machine digitalocean instances
+#  by default digitalocean instances do not have swap enabled
 
 # Adapted from:
 # https://github.com/docker/machine/issues/829#issuecomment-98549179
@@ -23,7 +23,7 @@ machines_all="$(docker-machine ls | grep digitalocean | awk '{print $1}')"
 machines_all_flag=false
 
 if [ -z "$machines" ]; then
-    echo "Please provide one or more DigitalOcean machine names, or --all"
+    echo "Please provide one or more digitalocean machine names, or --all"
     exit 1
 fi
 
@@ -44,7 +44,7 @@ if [ $machines_all_flag = false ]; then
             fi
         done
         if [ $machine_match = false ]; then
-            echo "No match for '$m' in the list of DigitalOcean machines"
+            echo "No match for '$m' in the list of digitalocean machines"
             exit 1
         fi
         machine_match=false
@@ -57,7 +57,7 @@ if [[ ( $machines_all_flag = false ) && \
     exit 1
 fi
 
-echo "Will create swapfile (if none exists) on DigitalOcean machines:"
+echo "Will create swapfile (if none exists) on digitalocean machines:"
 echo ""
 echo $machines | tr ' ' '\n' | awk '{print "  " NR ". " $0}' -
 echo ""
