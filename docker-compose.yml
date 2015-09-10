@@ -1,3 +1,6 @@
+# MAINTAINER "Michael Bradley" <michaelsbradleyjr@gmail.com>
+# Ave, Regina Caelorum, ave, Domina Angelorum: salve, radix, salve, porta!
+
 db:
   build: images/db
   env_file: env_file
