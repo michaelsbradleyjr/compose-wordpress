@@ -53,7 +53,10 @@ fi
 
 if [[ ( $machines_all_flag = false ) && \
           ( $(echo $machines | tr ' ' '\n' | awk 'a[$0]++{print "true"}' -)  = "true" ) ]]; then
-    echo "Machine name '$m' was given more than once"
+    echo "One or more machine names were given more than once:"
+    echo ""
+    echo $machines | tr ' ' '\n' | awk 'seen[$0]++ == 1' - | awk '{print "  " $0}' -
+    echo ""
     exit 1
 fi
 
