@@ -25,6 +25,7 @@ for ss in ${support_scripts[@]}; do
     chmod 754 /$ss
     ln -s /$ss /usr/local/bin/$ss
 done
+ln -s /entrypoint.sh /usr/local/bin/entrypoint.sh
 
 mkdir -p /support
 support_files=(
