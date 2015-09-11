@@ -27,6 +27,7 @@ if [ -z "$mailorigin" ]; then
     mailorigin="example.com"
 fi
 echo "root,wordpress" > /etc/postfix/canonical
+echo "www-data,wordpress" >> /etc/postfix/canonical
 chmod 644 /etc/postfix/canonical
 postconf -e canonical_maps=hash:/etc/postfix/canonical
 postconf -e inet_interfaces=localhost
