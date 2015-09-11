@@ -51,7 +51,7 @@ if [ (! -e /docker-build/support/ssl/ssl.key) || \
          (! -e /docker-build/support/ssl/ssl.crt) ]; then
     openssl req \
             -new \
-            -newkey rsa:4096 \
+            -newkey rsa:2048 \
             -days 365 \
             -nodes \
             -x509 \
