@@ -2,8 +2,6 @@
 
 apt-get update
 apt-get -y install \
-        # may not need the following, per build system of docker php image
-        # libapache2-mod-php5 \
         php-mime-type \
         php5-mcrypt \
         php5-tidy \
@@ -13,6 +11,9 @@ apt-get -y install \
         supervisor \
         unzip \
         zip
+
+# may not need the following, per build system of docker php image
+# libapache2-mod-php5 \
 
 support_scripts=(
     apache2-foreground.sh
