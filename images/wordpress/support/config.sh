@@ -34,7 +34,7 @@ support_files=(
 )
 for sf in ${support_files[@]}; do
     cp /docker-build/support/$sf /support/$sf
-    chmod 640 /support/$sf
+    chmod 644 /support/$sf
 done
 
 support_dirs=(
