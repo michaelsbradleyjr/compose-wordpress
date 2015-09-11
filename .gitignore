@@ -12,6 +12,8 @@ images/sftp/ssh-keys/*
 !images/sftp/ssh-keys/.gitkeep
 images/wordpress/plugins/*
 !images/wordpress/plugins/.gitkeep
+images/wordpress/sites-available/*
+!images/wordpress/sites-available/.gitkeep
 images/wordpress/sites-enabled/*
 !images/wordpress/sites-enabled/.gitkeep
 images/wordpress/ssl/*
