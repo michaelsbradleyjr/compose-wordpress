@@ -36,6 +36,3 @@ postconf -e myhostname=$maildomain
 postconf -e mynetworks="127.0.0.0/8 [::ffff:127.0.0.0]/104 [::1]/128"
 postconf -e myorigin=$mailorigin
 postconf -F '*/*/chroot = n'
-
-# /etc/postfix/main.cf
-# postconf -e some_setting=val
