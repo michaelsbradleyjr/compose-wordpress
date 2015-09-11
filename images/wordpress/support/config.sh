@@ -51,8 +51,8 @@ for sd in ${support_dirs[@]}; do
     done
 done
 
-if [ (! -e /docker-build/support/ssl/ssl.key) || \
-         (! -e /docker-build/support/ssl/ssl.crt) ]; then
+if [[ (! -e /docker-build/ssl/ssl.key) || \
+         (! -e /docker-build/ssl/ssl.crt) ]]; then
     openssl req \
             -new \
             -newkey rsa:2048 \
@@ -60,15 +60,15 @@ if [ (! -e /docker-build/support/ssl/ssl.key) || \
             -nodes \
             -x509 \
             -subj "/C=US/ST=State/L=City/O=Org/CN=example.com" \
-            -keyout /docker-build/support/ssl/ssl.key \
-            -out /docker-build/support/ssl/ssl.crt
+            -keyout /docker-build/ssl/ssl.key \
+            -out /docker-build/ssl/ssl.crt
 fi
 addgroup --system 'ssl-cert'
-chmod 440 /docker-build/support/ssl/*.key
-chown root:ssl-cert /docker-build/support/ssl/*.key
-chmod 444 /docker-build/support/ssl/*.crt
-cp /docker-build/support/ssl/*.key /etc/ssl/private
-cp /docker-build/support/ssl/*.crt /etc/ssl/certs
+chmod 440 /docker-build/ssl/*.key
+chown root:ssl-cert /docker-build/ssl/*.key
+chmod 444 /docker-build/ssl/*.crt
+cp /docker-build/ssl/*.key /etc/ssl/private
+cp /docker-build/ssl/*.crt /etc/ssl/certs
 
 a2enmod expires headers ssl
 
