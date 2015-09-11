@@ -8,8 +8,8 @@ fuse*
 *.swp
 
 env_file
-images/sftp/keys/*
-!images/sftp/keys/.gitkeep
+images/sftp/ssh-keys/*
+!images/sftp/ssh-keys/.gitkeep
 images/wordpress/plugins/*
 !images/wordpress/plugins/.gitkeep
 images/wordpress/sites-enabled/*
