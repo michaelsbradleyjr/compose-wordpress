@@ -1,12 +1,24 @@
 #!/bin/bash
 
-# check if work is already done by checking if some sentinel dot.file exists in /var/www/html
-# if it doesn't then
-# .htaccess mod, put plugins and themes in place
-# then touch the sentinel dotfile
+if [ ! -e /var/www/html/.ht_post_entrypoint_setup ]; then
+    cat /support/dot.htaccess >> /var/www/html/.htaccess
 
-# plugins I think I will want: ssl redirect thing, total cache, updraft plus premium...
-#   check the current prod server, and also wpdev-round2
-#   keep in mind that the restore from updraft plus will put many things in place
+    plugins="$(ls -A /support/plugins/*.zip 2>/dev/null)"
+    themes="$(ls -A /support/themes/*.zip 2>/dev/null)"
+    for p in ${plugins[@]}; do
+        unzip $p -d /var/www/html/wp-content/plugins
+    done
+    for t in ${themes[@]}; do
+        unzip $t -d /var/www/html/wp-content/themes
+    done
+    chown -R www-data:www-data /var/www/html/wp-content/plugins
+    chown -R www-data:www-data /var/www/html/wp-content/themes
 
-# invoke apache2-foreground
+    touch /var/www/html/.ht_post_entrypoint_setup
+    chown www-data:www-data /var/www/html/.ht_post_entrypoint_setup
+    chmod 644 /var/www/html/.ht_post_entrypoint_setup
+    echo "automatically created by /apache2-foreground.sh, do not delete" \
+         >> /var/www/html/.ht_post_entrypoint_setup
+fi
+
+exec apache2-foreground
