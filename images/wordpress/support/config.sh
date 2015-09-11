@@ -45,7 +45,10 @@ support_dirs=(
 for sd in ${support_dirs[@]}; do
     cp -R /docker-build/$sd /support/$sd
     chmod 755 /support/$sd
-    chmod 644 /support/$sd/*
+    sd_files="$(ls -A /support/$sd/* 2>/dev/null)"
+    for sdf in ${sd_files[@]}; do
+        chmod 644 $sdf
+    done
 done
 
 if [ (! -e /docker-build/support/ssl/ssl.key) || \
