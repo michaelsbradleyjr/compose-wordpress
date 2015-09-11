@@ -2,6 +2,11 @@
 
 apt-get update
 apt-get -y install \
+        libapache2-mod-php5 \
+        php-mime-type \
+        php5-mcrypt \
+        php5-tidy \
+        php5-xcache \
         postfix \
         rsyslog \
         supervisor \
