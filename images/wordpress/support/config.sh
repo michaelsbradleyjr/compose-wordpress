@@ -12,10 +12,6 @@ apt-get -y install \
         supervisor \
         unzip \
         zip
-        # remove mg when finished dev'ing this image
-        # mcrypt thing
-        # zip
-        # check to see what pieces updraft, total cache thinks are missing
 
 cp /docker-build/support/apache2-foreground.sh /apache2-foreground.sh
 cp /docker-build/support/postfix.sh /postfix.sh
