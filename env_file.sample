@@ -1,2 +1,6 @@
 # MariaDB environment
 MYSQL_ROOT_PASSWORD=somesecretpassword
+
+# WordPress environment
+WP_MAIL_DOMAIN=mail.example.com
+WP_MAIL_ORIGIN=example.com
