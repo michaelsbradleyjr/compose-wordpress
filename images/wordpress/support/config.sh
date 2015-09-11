@@ -13,32 +13,65 @@ apt-get -y install \
         unzip \
         zip
 
-cp /docker-build/support/apache2-foreground.sh /apache2-foreground.sh
-cp /docker-build/support/postfix.sh /postfix.sh
-cp /docker-build/support/postfix-install.sh /postfix-install.sh
-cp /docker-build/support/super-entrypoint.sh /super-entrypoint.sh
-
-ln -s /apache2-foreground.sh /usr/local/bin/apache2-foreground.sh
-ln -s /entrypoint.sh /usr/local/bin/entrypoint.sh
-ln -s /postfix.sh /usr/local/bin/postfix.sh
-ln -s /postfix-install.sh /usr/local/bin/postfix-install.sh
-ln -s /super-entrypoint.sh /usr/local/bin/super-entrypoint.sh
+support_scripts=(
+    apache2-foreground.sh
+    postfix.sh
+    postfix-install.sh
+    super-entrypoint.sh
+)
+for ss in ${support_scripts[@]}; do
+    cp /docker-build/support/$ss /$ss
+    chmod 754 /$ss
+    ln -s /$ss /usr/local/bin/$ss
+done
 
 mkdir -p /support
-cp /docker-build/support/dot.htaccess /support/dot.htaccess
-cp /docker-build/support/supervisord.conf /support/supervisord.conf
+support_files=(
+    dot.htaccess
+    supervisord.conf
+)
+for sf in ${support_files[@]}; do
+    cp /docker-build/support/$sf /support/$sf
+    chmod 640 /support/$sf
+done
 
-cp -R /docker-build/plugins /support/plugins
-cp -R /docker-build/themes /support/themes
+support_dirs=(
+    plugins
+    themes
+)
+for sd in ${support_dirs[@]}; do
+    cp -R /docker-build/$sd /support/$sd
+    chmod 755 /support/$sd
+    chmod 644 /support/$sd/*
+done
 
-confs="$(ls -A /docker-build/sites-enabled/*.conf)"
+if [ (! -e /docker-build/support/ssl/ssl.key) || \
+         (! -e /docker-build/support/ssl/ssl.crt) ]; then
+    openssl req \
+            -new \
+            -newkey rsa:4096 \
+            -days 365 \
+            -nodes \
+            -x509 \
+            -subj "/C=US/ST=State/L=City/O=Org/CN=example.com" \
+            -keyout /docker-build/support/ssl/ssl.key \
+            -out /docker-build/support/ssl/ssl.crt
+fi
+addgroup --system 'ssl-cert'
+chmod 440 /docker-build/support/ssl/*.key
+chown root:ssl-cert /docker-build/support/ssl/*.key
+chmod 444 /docker-build/support/ssl/*.crt
+cp /docker-build/support/ssl/*.key /etc/ssl/private
+cp /docker-build/support/ssl/*.crt /etc/ssl/certs
 
-[ "$confs" ] && cp /docker-build/sites-enabled/*.conf /etc/apache2/sites-available
+a2enmod expires headers ssl
 
-# for c in ~/projects/*.c; do
-#     test -f "$z" || continue
-#     echo "Working on $z C program..."
-# done
-
-a2enmod ssl
-a2ensite wordpress-ssl.conf
+confs_ava="$(ls -A /docker-build/sites-available/*.conf 2>/dev/null)"
+confs_ena="$(ls -A /docker-build/sites-enabled/*.conf 2>/dev/null)"
+for ca in ${confs_ava[@]}; do
+    cp $ca /etc/apache2/sites-available
+done
+for ce in ${confs_ena[@]}; do
+    ceb=$(basename "$ce" .conf)
+    a2ensite $ceb
+done
