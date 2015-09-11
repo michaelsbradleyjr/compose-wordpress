@@ -63,7 +63,6 @@ if [[ (! -e /docker-build/ssl/ssl.key) || \
             -keyout /docker-build/ssl/ssl.key \
             -out /docker-build/ssl/ssl.crt
 fi
-addgroup --system 'ssl-cert'
 chmod 440 /docker-build/ssl/*.key
 chown root:ssl-cert /docker-build/ssl/*.key
 chmod 444 /docker-build/ssl/*.crt
