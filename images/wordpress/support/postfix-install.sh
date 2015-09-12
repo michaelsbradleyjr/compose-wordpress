@@ -42,3 +42,5 @@ echo "www-data    wordpress" >> /etc/postfix/sender_canonical
 chown root:postfix /etc/postfix/sender_canonical
 chmod 664 /etc/postfix/sender_canonical
 postmap /etc/postfix/sender_canonical
+
+echo "sendmail_path=/usr/sbin/sendmail -t -i" > /usr/local/etc/php/conf.d/sendmail.ini
