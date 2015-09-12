@@ -69,6 +69,22 @@ cp /docker-build/ssl/*.crt /etc/ssl/certs
 
 a2enmod expires headers ssl
 
+mkdir -p /docker-build/temp
+cd /docker-build/temp
+curl -O http://xcache.lighttpd.net/pub/Releases/3.2.0/xcache-3.2.0.tar.gz
+tar xvzf xcache-3.2.0.tar.gz
+find . -type d -exec chmod 0755 {} \;
+find . -type f -exec chmod 0644 {} \;
+mv xcache-3.2.0 /usr/src/php/ext/xcache
+cd -
+docker-php-ext-install \
+    mcrypt \
+    tidy \
+    opcache \
+    xcache \
+    zip
+cat /docker-build/support/xcache.ini > /usr/local/etc/php/conf.d/docker-php-ext-xcache.ini
+
 confs_ava="$(ls -A /docker-build/sites-available/*.conf 2>/dev/null)"
 confs_ena="$(ls -A /docker-build/sites-enabled/*.conf 2>/dev/null)"
 for ca in ${confs_ava[@]}; do
