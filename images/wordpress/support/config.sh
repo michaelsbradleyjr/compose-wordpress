@@ -21,7 +21,7 @@ support_scripts=(
 )
 for ss in ${support_scripts[@]}; do
     cp /docker-build/support/$ss /$ss
-    chmod 754 /$ss
+    chmod 755 /$ss
     ln -s /$ss /usr/local/bin/$ss
 done
 ln -s /entrypoint.sh /usr/local/bin/entrypoint.sh
