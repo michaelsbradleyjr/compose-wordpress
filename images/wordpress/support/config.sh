@@ -2,6 +2,8 @@
 
 apt-get update
 apt-get -y install \
+        libmcrypt-dev \
+        libtidy-dev \
         postfix \
         rsyslog \
         supervisor \
