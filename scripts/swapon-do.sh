@@ -66,7 +66,7 @@ echo $machines | tr ' ' '\n' | awk '{print "  " NR ". " $0}' -
 echo ""
 for m in ${machines[@]}; do
     printf "\x1B[01;33m$m\n\x1B[0m" && \
-        docker-machine ssh $m -- "ls /swapfile &>/dev/null && free -htl" || \
+        docker-machine ssh $m -- "ls /swapfile &>/dev/null && free -htl" 2>/dev/null || \
             docker-machine ssh $m -- \
                            "fallocate -l 1G /swapfile && chmod 600 /swapfile && mkswap /swapfile && \
                 echo -e '\n/swapfile none swap defaults 0 0' >> /etc/fstab && swapon -a && free -htl"
