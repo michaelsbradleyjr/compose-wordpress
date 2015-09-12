@@ -29,7 +29,7 @@ fi
 postconf -e sender_canonical_maps=hash:/etc/postfix/sender_canonical
 postconf -e inet_interfaces=localhost
 postconf -e masquerade_domains=$mailorigin
-postcont -e mydestination="localhost, localhost.localdomain, localhost"
+postconf -e mydestination="localhost, localhost.localdomain, localhost"
 postconf -e myhostname=$maildomain
 postconf -e mynetworks="127.0.0.0/8 [::ffff:127.0.0.0]/104 [::1]/128"
 postconf -e myorigin=$mailorigin
