@@ -78,6 +78,7 @@ find . -type f -exec chmod 0644 {} \;
 mv xcache-3.2.0 /usr/src/php/ext/xcache
 cd -
 docker-php-ext-install \
+    mbstring \
     mcrypt \
     tidy \
     opcache \
