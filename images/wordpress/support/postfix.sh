@@ -4,4 +4,8 @@
 # https://github.com/catatnight/docker-postfix
 
 service postfix start
-tail -f /var/log/mail.log
+tail -f -q --retry \
+     /var/log/mail.err \
+     /var/log/mail.info \
+     /var/log/mail.log \
+     /var/log/mail.warn
