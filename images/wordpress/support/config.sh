@@ -10,9 +10,6 @@ apt-get -y install \
         unzip \
         zip
 
-# may not need the following, per build system of docker php image
-# libapache2-mod-php5 \
-
 support_scripts=(
     apache2-foreground.sh
     postfix.sh
