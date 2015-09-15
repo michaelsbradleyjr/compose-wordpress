@@ -83,6 +83,7 @@ docker-php-ext-install \
     zip
 cat /docker-build/support/xcache.ini > /usr/local/etc/php/conf.d/docker-php-ext-xcache.ini
 
+cat /docker-build/support/apache2.conf.append >> /etc/apache2/apache2.conf
 confs_ava="$(ls -A /docker-build/sites-available/*.conf 2>/dev/null)"
 confs_ena="$(ls -A /docker-build/sites-enabled/*.conf 2>/dev/null)"
 for ca in ${confs_ava[@]}; do
